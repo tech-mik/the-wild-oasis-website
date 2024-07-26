@@ -5,14 +5,15 @@ import bg from '@/../public/bg.png'
 export default function Page() {
   return (
     <main className='mt-24'>
-      {/* <Image
+      <Image
         src={bg}
         fill
+        width={2000}
         alt='Mountains and forests with two cabins'
         className='object-cover object-top'
         placeholder='blur'
         quality={70}
-      /> */}
+      />
 
       <div className='relative z-10 text-center'>
         <h1 className='text-8xl text-primary-50 mb-10 tracking-tight font-normal'>
