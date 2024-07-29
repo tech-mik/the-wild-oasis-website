@@ -6,12 +6,11 @@ function NotFound() {
       </h1>
       <a
         href='/'
-        className='inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg'
-      >
+        className='inline-block bg-accent-500 text-primary-800 px-6 py-3 text-lg'>
         Go back home
       </a>
     </main>
-  );
+  )
 }
 
-export default NotFound;
+export default NotFound

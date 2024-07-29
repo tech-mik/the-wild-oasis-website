@@ -8,11 +8,10 @@ export default function Page() {
       <Image
         src={bg}
         fill
-        width={2000}
         alt='Mountains and forests with two cabins'
         className='object-cover object-top'
         placeholder='blur'
-        quality={70}
+        quality={40}
       />
 
       <div className='relative z-10 text-center'>
