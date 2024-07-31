@@ -14,6 +14,12 @@ const nextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'authjs.dev',
+        port: '',
+        pathname: '/img/**',
+      },
     ],
   },
 }

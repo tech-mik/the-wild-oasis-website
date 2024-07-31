@@ -2,7 +2,7 @@
 
 import { XMarkIcon } from '@heroicons/react/24/solid'
 import { format } from 'date-fns'
-import { useReservation } from '../app/context/ReservationContext'
+import { useReservation } from '../context/ReservationContext'
 
 function ReservationReminder() {
   const { range, resetRange } = useReservation()

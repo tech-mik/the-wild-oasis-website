@@ -1,6 +1,4 @@
 import SideNavigation from '@/components/SideNavigation'
-import { SessionProvider } from 'next-auth/react'
-import { AuthProvider } from '../context/AuthContext'
 
 export default function Layout({ children }) {
   return (

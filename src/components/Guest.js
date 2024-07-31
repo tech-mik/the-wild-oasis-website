@@ -1,6 +1,6 @@
 'use client'
 
-import { useAuth } from '@/app/context/AuthContext'
+import { useAuth } from '@/context/AuthContext'
 import Link from 'next/link'
 import SpinnerMini from './SpinnerMini'
 import Image from 'next/image'

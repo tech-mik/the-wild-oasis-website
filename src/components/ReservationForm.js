@@ -1,6 +1,6 @@
 'use client'
 
-import { useReservation } from '../app/context/ReservationContext'
+import { useReservation } from '../context/ReservationContext'
 
 function ReservationForm({ cabin, user }) {
   // CHANGE

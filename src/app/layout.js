@@ -1,11 +1,11 @@
 import Header from '@/components/Header'
-import { ReservationProvider } from '@/app/context/ReservationContext'
+import { ReservationProvider } from '@/context/ReservationContext'
 
 import '@/styles/globals.css'
 
 import { Josefin_Sans } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
-import { AuthProvider } from './context/AuthContext'
+import { AuthProvider } from '../context/AuthContext'
 
 const josefin = Josefin_Sans({
   subsets: ['latin'],
