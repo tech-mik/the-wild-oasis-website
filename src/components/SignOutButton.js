@@ -1,4 +1,5 @@
-import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid';
+import { auth } from '@/auth'
+import { ArrowRightOnRectangleIcon } from '@heroicons/react/24/solid'
 
 function SignOutButton() {
   return (
@@ -6,7 +7,7 @@ function SignOutButton() {
       <ArrowRightOnRectangleIcon className='h-5 w-5 text-primary-600' />
       <span>Sign out</span>
     </button>
-  );
+  )
 }
 
-export default SignOutButton;
+export default SignOutButton
