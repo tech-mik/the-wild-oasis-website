@@ -45,29 +45,41 @@ export async function signOutAction() {
   await signOut({ redirectTo: '/' })
 }
 
-export async function deleteReservation(bookingId) {
-  const session = await auth()
+////////////////////////////////////////////
+// Booking actions
 
+export async function createBooking(bookingData, formData) {
+  const session = await auth()
   if (!session) throw new Error('You must be logged in')
 
-  const guestBookings = await getBookings(session.user.guestId)
-  const guestBookingsIds = guestBookings.map((booking) => booking.id)
-
-  if (!guestBookingsIds.includes(bookingId)) {
-    throw new Error('You are not authorized to delete this booking')
+  const newBooking = {
+    ...bookingData,
+    guestId: session.user.guestId,
+    numGuests: +formData.get('numGuests'),
+    observations: formData.get('observations'),
+    extrasPrice: 0,
+    totalPrice: bookingData.cabinPrice,
+    status: 'unconfirmed',
+    isPaid: false,
+    hasBreakfast: false,
   }
 
-  const { error } = await supabase.from('bookings').delete().eq('id', bookingId)
+  const { error } = await supabase
+    .from('bookings')
+    .insert([newBooking])
+    // So that the newly created object gets returned!
+    .select()
+    .single()
 
   if (error) {
-    console.error(error)
-    throw new Error('Booking could not be deleted')
+    throw new Error('Booking could not be created')
   }
-
   revalidatePath('/account/reservations')
+  revalidatePath(`/cabins/${bookingData.cabinId}`)
+  redirect('/account/reservations')
 }
 
-export async function editReservation(formData) {
+export async function editBooking(formData) {
   const bookingId = +formData.get('bookingId')
   const numGuests = +formData.get('numGuests')
   const observations = formData.get('observations')
@@ -87,4 +99,28 @@ export async function editReservation(formData) {
   revalidatePath('/account/reservations')
   revalidatePath(`/account/reservations/edit/${bookingId}`)
   redirect('/account/reservations')
+}
+
+export async function deleteBooking(bookingId) {
+  await wait(1)
+
+  const session = await auth()
+
+  if (!session) throw new Error('You must be logged in')
+
+  const guestBookings = await getBookings(session.user.guestId)
+  const guestBookingsIds = guestBookings.map((booking) => booking.id)
+
+  if (!guestBookingsIds.includes(bookingId)) {
+    throw new Error('You are not authorized to delete this booking')
+  }
+
+  const { error } = await supabase.from('bookings').delete().eq('id', bookingId)
+
+  if (error) {
+    console.error(error)
+    throw new Error('Booking could not be deleted')
+  }
+
+  revalidatePath('/account/reservations')
 }

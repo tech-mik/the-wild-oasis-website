@@ -1,11 +1,26 @@
 'use client'
 
+import Image from 'next/image'
 import { useReservation } from '../context/ReservationContext'
+import { differenceInDays } from 'date-fns'
+import { createBooking } from '@/lib/actions'
 
 function ReservationForm({ cabin, user }) {
-  // CHANGE
   const { range } = useReservation()
-  const { maxCapacity } = cabin
+  const { id: cabinId, maxCapacity, regularPrice, discount } = cabin
+  const { from: startDate, to: endDate } = range
+  const numNights = differenceInDays(endDate, startDate)
+  const cabinPrice = +numNights * (regularPrice - discount)
+
+  const bookingData = {
+    startDate,
+    endDate,
+    numNights,
+    cabinPrice,
+    cabinId,
+  }
+
+  // const createBookingWithData = createBooking.bind(null, bookingData)
 
   return (
     <div className='scale-[1.01]'>
@@ -13,8 +28,9 @@ function ReservationForm({ cabin, user }) {
         <p>Logged in as</p>
 
         <div className='flex gap-4 items-center'>
-          <img
-            // Important to display google profile images
+          <Image
+            width={32}
+            height={32}
             referrerPolicy='no-referrer'
             className='h-8 rounded-full'
             src={user.image}
@@ -24,7 +40,9 @@ function ReservationForm({ cabin, user }) {
         </div>
       </div>
 
-      <form className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
+      <form
+        action={(formData) => createBooking(bookingData, formData)}
+        className='bg-primary-900 py-10 px-16 text-lg flex gap-5 flex-col'>
         <div className='space-y-2'>
           <label htmlFor='numGuests'>How many guests?</label>
           <select

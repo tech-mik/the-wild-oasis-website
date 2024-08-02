@@ -1,6 +1,7 @@
 import { auth } from '@/auth'
-import { editReservation } from '@/lib/actions'
+import { editBooking } from '@/lib/actions'
 import { getBooking, getCabin } from '@/lib/data-service'
+import Button from './Button'
 
 export default async function Page({ params: { bookingId } }) {
   const { cabinId, observations, numGuests } = await getBooking(bookingId)
@@ -13,7 +14,7 @@ export default async function Page({ params: { bookingId } }) {
       </h2>
 
       <form
-        action={editReservation}
+        action={editBooking}
         className='bg-primary-900 py-8 px-12 text-lg flex gap-6 flex-col'>
         <input type='hidden' name='bookingId' value={bookingId} />
         <div className='space-y-2'>
@@ -47,9 +48,7 @@ export default async function Page({ params: { bookingId } }) {
         </div>
 
         <div className='flex justify-end items-center gap-6'>
-          <button className='bg-accent-500 px-8 py-4 text-primary-800 font-semibold hover:bg-accent-600 transition-all disabled:cursor-not-allowed disabled:bg-gray-500 disabled:text-gray-300'>
-            Update reservation
-          </button>
+          <Button />
         </div>
       </form>
     </div>
