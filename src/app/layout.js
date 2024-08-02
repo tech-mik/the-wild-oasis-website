@@ -1,10 +1,11 @@
 import Header from '@/components/Header'
 import { ReservationProvider } from '@/context/ReservationContext'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 import '@/styles/globals.css'
 
-import { Josefin_Sans } from 'next/font/google'
 import { SessionProvider } from 'next-auth/react'
+import { Josefin_Sans } from 'next/font/google'
 import { AuthProvider } from '../context/AuthContext'
 
 const josefin = Josefin_Sans({
@@ -34,6 +35,7 @@ export default function RootLayout({ children }) {
                 <ReservationProvider>{children}</ReservationProvider>
               </main>
             </div>
+            <SpeedInsights />
           </body>
         </html>
       </AuthProvider>
